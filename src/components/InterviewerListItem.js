@@ -1,5 +1,9 @@
 import React from "react";
 
+//styling
+
+import "./styling/InterviewerListItem.scss"
+
 /**
  * 
  Our InterviewerListItem component takes in the following props:
@@ -14,7 +18,14 @@ setInterviewer:function - sets the interviewer upon selection
 
 const InterviewerListItem = (props) => {
   return (
-    <></>
+    <li className="interviewers__item">
+      <img
+        className="interviewers__item-image"
+        src="https://i.imgur.com/LpaY82x.png"
+        alt="Sylvia Palmer"
+      />
+  Sylvia Palmer
+    </li>
   );
 };
 
