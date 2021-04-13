@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 //components
 import DayList from "components/DayList.js"
+
 //styling
 import "components/styling/Application.scss";
-import "components/styling/DayListItem.scss"
+// import "components/styling/DayListItem.scss"
 
 //mock day data-- to be replaced 
 

@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import "components/styling/DayListItem.scss";
+import "./styling/DayListItem.scss";
 
 
 const DayListItem = (props) => {
@@ -19,14 +19,14 @@ const DayListItem = (props) => {
       spot = "One spot remaining!";
     }
     if (spots >= 2) {
-      spot = `${spots} spots remaning!`;
+      spot = `${spots} spots remaining!`;
     }
     return spot; 
   };
   return (
-    <li onClick={() => props.setDay(props.name)}>
+    <li className={dayClass} onClick={() => props.setDay(props.name)}>
       <h2 className="text--regular">{props.name}</h2>
-      <h3 classname="text--light">{formatSpots(props.spots)}</h3>
+      <h3 className="text--light">{formatSpots(props.spots)}</h3>
     </li>
   );
 };
