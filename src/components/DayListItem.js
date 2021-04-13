@@ -2,9 +2,9 @@ import React from "react";
 
 const DayListItem = (props) => {
   return (
-    <li>
-      <h2 className="text--regular">Day Name</h2>
-      <h3 classname="text--light"> X Spots Remaining! </h3>
+    <li onClick={() => props.setDay(props.name)}>
+      <h2 className="text--regular">{props.name}</h2>
+      <h3 classname="text--light">{props.spots}</h3>
     </li>
   )
 }
