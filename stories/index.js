@@ -13,8 +13,9 @@ import InterviewerList from "components/InterviewerList";
 import Appointment from "components/Appointment/index";
 import Header from "components/Appointment/Header";
 import Empty from "components/Appointment/Empty";
-import Show from "components/Appointment/Show"
+import Show from "components/Appointment/Show";
 import Confirm from "components/Appointment/Confirm";
+import Status from "components/Appointment/Status";
 
 //button stories 
 
@@ -152,15 +153,16 @@ storiesOf("Appointment", module)
   .add("Appointment with time", () => <Appointment time="12pm" />)
   .add("Header", () => <Header time="12pm" />)
   .add("Empty", () => <Empty onAdd={action("onAdd")} />)
-  .add("Show", () => (<Show 
+  .add("Show", () => (<Show
     student="Jimmy McDude"
     interviewer={interviewer.name}
     onEdit={action("onEdit")}
     onDelete={action("onDelete")}
   />))
-  .add("Confim", () => (<Confirm 
-  message="Delete this appointment?"
-  onConfirm={action("onConfrim")}
-  onCancel={action("onCancel")}
+  .add("Confim", () => (<Confirm
+    message="Delete this appointment?"
+    onConfirm={action("onConfrim")}
+    onCancel={action("onCancel")}
   />))
+  .add("Status", () => <Status message="yeet!"/>)
 
