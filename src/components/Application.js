@@ -54,7 +54,7 @@ const appointments = [
     id: 4,
     time: "3pm",
     interview: {
-      student: "Jimmy McDude",
+      student: "Chuck Tingle",
       interviewer: {
         id: 4,
         name: "Sentient Interview Scheudler App",

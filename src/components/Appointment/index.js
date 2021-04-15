@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 //components
 import Header from "components/Appointment/Header"
 import Show from "components/Appointment/Show"
