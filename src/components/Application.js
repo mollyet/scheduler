@@ -1,84 +1,104 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"
+import axios from "axios";
+
 //components
-import DayList from "components/DayList.js"
-import Appointment from "components/Appointment/index"
+
+import DayList from "components/DayList.js";
+import Appointment from "components/Appointment/index";
+
+//helpers
+
+import { getApptsByDay } from "../helpers/selectors";
 
 //styling
 import "components/styling/Application.scss";
-// import "components/styling/DayListItem.scss"
+
 
 
 //mock appointmnet data-- to be replaced soon
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 3,
-    time: "2pm",
-  },
-  {
-    id: 4,
-    time: "3pm",
-    interview: {
-      student: "Chuck Tingle",
-      interviewer: {
-        id: 4,
-        name: "Sentient Interview Scheudler App",
-        avatar: "https://i.imgur.com/FK8V841.jpg",
-      }
-    }
-  },
-  
-];
+// const appointments = [
+//   {
+//     id: 1,
+//     time: "12pm",
+//   },
+//   {
+//     id: 2,
+//     time: "1pm",
+//     interview: {
+//       student: "Lydia Miller-Jones",
+//       interviewer: {
+//         id: 1,
+//         name: "Sylvia Palmer",
+//         avatar: "https://i.imgur.com/LpaY82x.png",
+//       }
+//     }
+//   },
+//   {
+//     id: 3,
+//     time: "2pm",
+//   },
+//   {
+//     id: 4,
+//     time: "3pm",
+//     interview: {
+//       student: "Chuck Tingle",
+//       interviewer: {
+//         id: 4,
+//         name: "Sentient Interview Scheudler App",
+//         avatar: "https://i.imgur.com/FK8V841.jpg",
+//       }
+//     }
+//   },
+
+// ];
 
 const Application = (props) => {
-  // const [day, setDay] = useState("Monday")
-  // const [days, setDays] = useState([])
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    // appointments: {}
-  })
+    appointments: {}
+  });
+  // const [day, setDay] = useState("Monday")
+  // const [days, setDays] = useState([])
+  // const setDays = (days) => {
+  //   setState(prev => ({ ...prev, days }));
+  // }
 
-  const setDay = day => setState({ ...state, day });
-  const setDays = (days) => {
-    setState(prev => ({ ...prev, days }));
-  }
 
+  // useEffect(() => {
+  //   const url = "http://localhost:8001/api/days"
+  //   axios.get(url)
+  //     .then((response) => {
+  //       // console.log(response)
+  //       setDays([...response.data])
+  //     })
+  // }, [state.day])
 
   useEffect(() => {
-    const url = "http://localhost:8001/api/days"
-    axios.get(url)
-      .then((response) => {
-        // console.log(response)
-        setDays([...response.data])
-      })
-  }, [state.day])
+    Promise.all([
+      axios.get("http://localhost:8001/api/days"),
+      axios.get("http://localhost:8001/api/appointments"),
+      axios.get("http://localhost:8001/api/interviewers"),
+    ]).then((all) => {
+      setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
+      // console.log(all)
+    });
+  }, []);
 
+  console.log("State", state);
 
-  const spicySchedule = appointments.map(appt => {
-    return(
-      <Appointment  
-      key={appt.id}
-      {...appt}
+  const dailyAppts = getApptsByDay(state, state.day);
+
+  const setDay = day => setState({ ...state, day });
+
+  const scheduleHammer40k = dailyAppts.map(appt => {
+    return (
+      <Appointment
+        {...appt}
+        key={appt.id}
       />
-    )
-  })
+    );
+  });
   return (
     <main className="layout">
       <section className="sidebar">
@@ -89,10 +109,10 @@ const Application = (props) => {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList 
-          days={state.days}
-          day={state.day}
-          setDay={setDay}
+          <DayList
+            days={state.days}
+            day={state.day}
+            setDay={setDay}
           />
         </nav>
         <img
@@ -102,11 +122,11 @@ const Application = (props) => {
         />
       </section>
       <section className="schedule">
-        {spicySchedule}
+        {scheduleHammer40k}
         <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
-}
+};
 
 export default Application;
