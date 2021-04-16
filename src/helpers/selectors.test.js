@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getApptsByDay } from "helpers/selectors"
+import { getApptsByDay, getInt } from "helpers/selectors"
 
 
 
@@ -31,8 +31,22 @@ const state = {
       time: "4pm",
       interview: { student: "Beyoncé", interviewer: 2 }
     }
+  },
+  interviewers: {
+    "1": {  
+      "id": 1,
+      "name": "Sylvia Palmer",
+      "avatar": "https://i.imgur.com/LpaY82x.png"
+    },
+    "2": {
+      id: 2,
+      name: "Britney Spears",
+      avatar: "https://i.imgur.com/Nmx0Qxo.png"
+    }
   }
 };
+
+
 
 test("getApptsByDay returns an array", () => {
   const result = getApptsByDay(state, "Monday");
@@ -58,4 +72,23 @@ test("getApptsByDay returns an empty array when the days data is empty", () => {
 test("getApptsByDay returns an empty array when the day is not found", () => {
   const result = getApptsByDay(state, "Wednesday");
   expect(result.length).toEqual(0);
+});
+
+test("getInt returns an object with the interviewer data", () => {
+  const result = getInt(state, state.appointments["3"].interview);
+  expect(result).toEqual(
+    expect.objectContaining({
+      student: expect.any(String),
+      interviewer: expect.objectContaining({
+        id: expect.any(Number),
+        name: expect.any(String),
+        avatar: expect.any(String)
+      })
+    })
+  );
+});
+
+test("getInt returns null if no interview is booked", () => {
+  const result = getInt(state, state.appointments["2"].interview);
+  expect(result).toBeNull();
 });
