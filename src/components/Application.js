@@ -8,7 +8,7 @@ import Appointment from "components/Appointment/index";
 
 //helpers
 
-import { getApptsByDay, getInt } from "../helpers/selectors";
+import { getApptsByDay, getInt, getIntsByDay } from "../helpers/selectors";
 
 //styling
 
@@ -38,6 +38,8 @@ const Application = (props) => {
 
   const setDay = day => setState({ ...state, day });
 
+  const interviewers = getIntsByDay(state, state.day)
+
   const scheduleHammer40k = dailyAppts.map(appt => {
     const interview = getInt(state, appt.interview)
     return (
@@ -47,6 +49,7 @@ const Application = (props) => {
         id={appt.id}
         time={appt.time}
         interview={interview}
+        interviewers={interviewers}
 
       />
     );
