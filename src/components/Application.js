@@ -40,6 +40,50 @@ const Application = (props) => {
 
   const interviewers = getIntsByDay(state, state.day)
 
+  const bookInt = (id, interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview
+    }
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    }
+    return axios.put(`/api/appointments/${id}`, { interview })
+    .then(response => {
+      // console.log("response!,", response)
+      if (response.status === 204){
+        setState({
+          ...state,
+          appointments
+        })
+        console.log("success! interview booked :) ")
+      }
+    })
+    // console.log("from bookint", id, interview)
+  }
+const deleteInt = (id) => {
+  const appointment = {
+    ...state.appointments[id],
+    interview: null
+  }
+  const appointments = {
+    ...state.appointments,
+    [id]: appointment
+  }
+  return axios.delete(`api/appointments/${id}`, {})
+    .then(response => {
+      if(response.status === 204) {
+        setState({
+          ...state,
+          appointments
+        });
+      }
+      console.log("YEET", response)
+    })
+  
+}
+
   const scheduleHammer40k = dailyAppts.map(appt => {
     const interview = getInt(state, appt.interview)
     return (
@@ -50,6 +94,8 @@ const Application = (props) => {
         time={appt.time}
         interview={interview}
         interviewers={interviewers}
+        bookInterview={bookInt}
+        deleteInterview={deleteInt}
 
       />
     );
