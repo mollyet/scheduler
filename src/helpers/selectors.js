@@ -34,4 +34,12 @@ const getIntsByDay = (state, day) => {
   return interviewers;
 };
 
-module.exports = { getApptsByDay, getInt, getIntsByDay };
+// gets indiv day state.days
+
+const getDay = (state, day) => state.days.find((x) => x.name === day)
+
+// gets a l l  the days
+
+const getAllDays = (state) => state.days
+
+module.exports = { getApptsByDay, getInt, getIntsByDay, getDay, getAllDays  };

@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 // route handling
 
 import axios from "axios";
+
+//helpers
+
+import { getDay, getAllDays } from "../helpers/selectors";
 
 const useAppData = () => {
   //days n' state
@@ -30,7 +34,28 @@ const useAppData = () => {
 
   const setDay = (day) => setState({ ...state, day });
 
-  //routes for booking/deleting appointments
+  const spottyMcSpotSpot = (day, appointments, state) => {
+    const daysArr = getAllDays(state);
+
+    const dayArr = getDay(state, day);
+    const apptIds = dayArr.appointments;
+    let spots = 0;
+    //stretch: refactor loop to be an array f(x) such as .filter interview = null, && spots = array.length
+    for (const id of apptIds) {
+      if (!appointments[id].interview) {
+        spots++;
+      }
+    }
+
+    dayArr.spots = spots;
+
+    const mcDays = [];
+    daysArr.forEach((oneDay) =>
+      oneDay.name === day ? mcDays.push(dayArr) : mcDays.push(oneDay)
+    );
+
+    return mcDays;
+  };
 
   const bookInt = (id, interview) => {
     const appointment = {
@@ -41,19 +66,26 @@ const useAppData = () => {
       ...state.appointments,
       [id]: appointment,
     };
+
+    const coolDays = spottyMcSpotSpot(state.day, appointments, state);
+
     return axios
       .put(`/api/appointments/${id}`, { interview })
       .then((response) => {
-        // console.log("response!,", response)
+        console.log("response!,", response);
+
         if (response.status === 204) {
           setState({
             ...state,
             appointments,
+            days: coolDays,
           });
-          console.log("success! interview booked :) ");
         }
+        console.log("success! interview booked :) ");
+      })
+      .catch((error) => {
+        console.log("errror!", error);
       });
-    // console.log("from bookint", id, interview)
   };
   const deleteInt = (id) => {
     const appointment = {
@@ -64,11 +96,14 @@ const useAppData = () => {
       ...state.appointments,
       [id]: appointment,
     };
+    const coolDays = spottyMcSpotSpot(state.day, appointments, state);
+
     return axios.delete(`api/appointments/${id}`, {}).then((response) => {
       if (response.status === 204) {
         setState({
           ...state,
           appointments,
+          days: coolDays,
         });
       }
       console.log("YEET", response);
