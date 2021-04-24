@@ -100,12 +100,13 @@ const Appointment = (props) => {
         />
       )}
       {mode === ERROR_SAVE && (
-        <Error onClose={back} message="Error! Could not save appointment :(" />
+        <Error onClose={back} message="Error! Could not save appointment." data-testid="err-save"/>
       )}
       {mode === ERROR_DELETE && (
         <Error
           onClose={back}
-          message="Error! Could not delete appointment :("
+          message="Error! Could not delete appointment."
+          data-testid="err-delete"
         />
       )}
     </article>
