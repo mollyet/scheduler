@@ -72,8 +72,6 @@ const useAppData = () => {
     return axios
       .put(`/api/appointments/${id}`, { interview })
       .then((response) => {
-        console.log("response!,", response);
-
         if (response.status === 204) {
           setState({
             ...state,
