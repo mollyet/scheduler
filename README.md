@@ -1,6 +1,6 @@
 # Interview Scheduler
 
-Interview Scheduler is an application made with React for Lighthouse Labs Web Development Bootcamp. Its pretty neat. 
+Interview Scheduler is an application made with React for [Lighthouse Labs Web Development Bootcamp](https://www.lighthouselabs.ca/). Its pretty neat. 
 
 # Screenshots
 !["Monday view/ homepage of app"](https://github.com/mollyet/scheduler/blob/master/docs/monday-with-selected.png?raw=true)
