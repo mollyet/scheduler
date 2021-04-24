@@ -2,12 +2,11 @@ import React from "react";
 import classNames from "classnames";
 import "./styling/DayListItem.scss";
 
-
 const DayListItem = (props) => {
   const dayClass = classNames({
     "day-list__item": true,
     "day-list__item--selected": props.selected,
-    "day-list__item--full": props.spots === 0
+    "day-list__item--full": props.spots === 0,
   });
 
   const formatSpots = (spots) => {
@@ -21,10 +20,14 @@ const DayListItem = (props) => {
     if (spots >= 2) {
       spot = `${spots} spots remaining!`;
     }
-    return spot; 
+    return spot;
   };
   return (
-    <li className={dayClass} onClick={() => props.setDay(props.name)} data-testid="day">
+    <li
+      className={dayClass}
+      onClick={() => props.setDay(props.name)}
+      data-testid="day"
+    >
       <h2 className="text--regular">{props.name}</h2>
       <h3 className="text--light">{formatSpots(props.spots)}</h3>
     </li>

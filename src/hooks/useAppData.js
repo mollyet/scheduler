@@ -34,9 +34,10 @@ const useAppData = () => {
 
   const setDay = (day) => setState({ ...state, day });
 
-  const spottyMcSpotSpot = (day, appointments, state) => {
-    const daysArr = getAllDays(state);
+  //updates the spots
 
+  const updateSpots = (day, appointments, state) => {
+    const daysArr = getAllDays(state);
     const dayArr = getDay(state, day);
     const apptIds = dayArr.appointments;
     let spots = 0;
@@ -46,16 +47,15 @@ const useAppData = () => {
         spots++;
       }
     }
-
     dayArr.spots = spots;
-
-    const mcDays = [];
-    daysArr.forEach((oneDay) =>
-      oneDay.name === day ? mcDays.push(dayArr) : mcDays.push(oneDay)
+    const daySpots = [];
+    daysArr.forEach((x) =>
+      x.name === day ? daySpots.push(dayArr) : daySpots.push(x)
     );
-
-    return mcDays;
+    return daySpots;
   };
+
+  //books the interview
 
   const bookInt = (id, interview) => {
     const appointment = {
@@ -67,7 +67,7 @@ const useAppData = () => {
       [id]: appointment,
     };
 
-    const coolDays = spottyMcSpotSpot(state.day, appointments, state);
+    const newSpots = updateSpots(state.day, appointments, state);
 
     return axios
       .put(`/api/appointments/${id}`, { interview })
@@ -78,15 +78,17 @@ const useAppData = () => {
           setState({
             ...state,
             appointments,
-            days: coolDays,
+            days: newSpots,
           });
         }
-        console.log("success! interview booked :) ");
       })
       .catch((error) => {
-        console.log("errror!", error);
+        console.log("error!", error);
       });
   };
+
+  //deletes the interview
+
   const deleteInt = (id) => {
     const appointment = {
       ...state.appointments[id],
@@ -96,18 +98,22 @@ const useAppData = () => {
       ...state.appointments,
       [id]: appointment,
     };
-    const coolDays = spottyMcSpotSpot(state.day, appointments, state);
+    const newSpots = updateSpots(state.day, appointments, state);
 
-    return axios.delete(`api/appointments/${id}`, {}).then((response) => {
-      if (response.status === 204) {
-        setState({
-          ...state,
-          appointments,
-          days: coolDays,
-        });
-      }
-      console.log("YEET", response);
-    });
+    return axios
+      .delete(`api/appointments/${id}`, {})
+      .then((response) => {
+        if (response.status === 204) {
+          setState({
+            ...state,
+            appointments,
+            days: newSpots,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log("error!", error);
+      });
   };
 
   return { state, setDay, bookInt, deleteInt };

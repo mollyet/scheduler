@@ -37,7 +37,6 @@ const Appointment = (props) => {
   );
 
   const save = (name, interviewer) => {
-    // console.log("name, interview", name, interviewer)
     transition(SAVING);
     const interview = {
       student: name,
@@ -100,7 +99,11 @@ const Appointment = (props) => {
         />
       )}
       {mode === ERROR_SAVE && (
-        <Error onClose={back} message="Error! Could not save appointment." data-testid="err-save"/>
+        <Error
+          onClose={back}
+          message="Error! Could not save appointment."
+          data-testid="err-save"
+        />
       )}
       {mode === ERROR_DELETE && (
         <Error

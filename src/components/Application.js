@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 
 //components
 
@@ -25,7 +24,7 @@ const Application = (props) => {
 
   const interviewers = getIntsByDay(state, state.day);
 
-  const scheduleHammer40k = dailyAppts.map((appt) => {
+  const superSchedule = dailyAppts.map((appt) => {
     const interview = getInt(state, appt.interview);
     return (
       <Appointment
@@ -51,7 +50,7 @@ const Application = (props) => {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList days={state.days} day={state.day} setDay={setDay}/>
+          <DayList days={state.days} day={state.day} setDay={setDay} />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
@@ -60,7 +59,7 @@ const Application = (props) => {
         />
       </section>
       <section className="schedule">
-        {scheduleHammer40k}
+        {superSchedule}
         <Appointment key="last" time="5pm" />
       </section>
     </main>
