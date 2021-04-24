@@ -13,4 +13,4 @@ const Status = (props) => {
   );
 };
 
-export default Status; 
+export default Status;

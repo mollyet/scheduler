@@ -11,8 +11,6 @@ import Status from "components/Appointment/Status";
 
 import useVisualMode from "hooks/useVisualMode";
 
-//helpers
-
 //styling
 
 import "./styles.scss";

@@ -36,10 +36,10 @@ const getIntsByDay = (state, day) => {
 
 // gets indiv day state.days
 
-const getDay = (state, day) => state.days.find((x) => x.name === day)
+const getDay = (state, day) => state.days.find((x) => x.name === day);
 
 // gets a l l  the days
 
-const getAllDays = (state) => state.days
+const getAllDays = (state) => state.days;
 
-module.exports = { getApptsByDay, getInt, getIntsByDay, getDay, getAllDays  };
+module.exports = { getApptsByDay, getInt, getIntsByDay, getDay, getAllDays };
