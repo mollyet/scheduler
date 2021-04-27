@@ -28,7 +28,6 @@ const Application = () => {
     const interview = getInt(state, appt.interview);
     return (
       <Appointment
-        {...appt}
         key={appt.id}
         id={appt.id}
         time={appt.time}

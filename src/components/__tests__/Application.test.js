@@ -149,7 +149,7 @@ describe("Application", () => {
     // expect(getByText(appointment, "Saving Appointment!"))
     // await waitForElement(() => getByText(appointment, "Error! Could not save appointment."));
     // expect(getByText(appointment, "Error! Could not save appointment.")).toBeInTheDocument();
-    // debug();
+    // debug();e
   });
   xit("show the delete error when failing to save an appointmnet", async () => {
     /// similar as above

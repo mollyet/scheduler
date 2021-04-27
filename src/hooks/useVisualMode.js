@@ -8,16 +8,16 @@ const useVisualMode = (x) => {
     if (!replace) {
       setMode(mode);
       setHistory([...history, mode]);
-    }
+      return;
+    } 
     setMode(mode);
+    setHistory([...history.slice(0, -1), mode])
   };
 
-  const back = (mode) => {
-    if (history.length === 1) {
-      setMode(x);
-    } else {
+  const back = () => {
+    if (history.length > 1) {
       setMode(history[history.length - 2]);
-      setHistory([history.slice(0, -1)]);
+      setHistory(history.slice(0, -1));
     }
   };
 
@@ -25,3 +25,6 @@ const useVisualMode = (x) => {
 };
 
 export default useVisualMode;
+
+
+//make note when submitting-- found other issues from a mentor regarding use if setHistory && the former line 20- "slice mutates array" is FALSE!!! it does not!!!! 
