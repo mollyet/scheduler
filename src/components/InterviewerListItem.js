@@ -6,8 +6,7 @@ import classNames from "classnames";
 import "./styling/InterviewerListItem.scss";
 
 const InterviewerListItem = (props) => {
-  const interviewer = classNames({
-    interviewers__item: true,
+  const interviewer = classNames("interviewers__item", {
     "interviewers__item--selected": props.selected,
   });
   return (
