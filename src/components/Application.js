@@ -17,7 +17,7 @@ import useAppData from "../hooks/useAppData";
 
 import "components/styling/Application.scss";
 
-const Application = (props) => {
+const Application = () => {
   const { state, setDay, bookInt, deleteInt } = useAppData();
 
   const dailyAppts = getApptsByDay(state, state.day);
