@@ -19,7 +19,10 @@ const Form = (props) => {
       setError("Student name cannot be blank");
       return;
     }
-    setError("");
+    if (!interviewer) {
+      setError("Please Select Interviewer");
+      return;
+    }
     props.onSave(name, interviewer);
   };
   return (
@@ -34,9 +37,6 @@ const Form = (props) => {
             value={name}
             placeholder="Enter Student Name"
             data-testid="student-name-input"
-            /*
-            This must be a controlled component
-          */
           />
           <section className="appointment__validation">{error}</section>
         </form>
