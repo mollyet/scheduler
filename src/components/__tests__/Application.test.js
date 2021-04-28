@@ -127,31 +127,45 @@ describe("Application", () => {
     expect(getByText(day, "One spot remaining!")).toBeInTheDocument();
   });
 
-  /**
-   * the following tests are skipped/commented out because I cannot get them to pass due to some kind
-   * of async error that does not have to do with the tests! i shall return to them soon :)
-   */
-  xit("shows the save error when failing to save an appointment", async () => {
-    // //simulate the error :D
-    // axios.put.mockRejectedValueOnce();
-    // //render app
-    // const { container, debug } = render(<Application />);
-    // await waitForElement(() => getByText(container, "Archie Cohen"));
-    // const appointment = getAllByTestId(container, "appointment").find(
-    //   appointment => queryByText(appointment, "Archie Cohen")
-    // );
-    // // console.log("random string! ... ! ", appointment)
-    // fireEvent.click(queryByAltText(appointment, "Edit"));
-    // fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
-    //   target: { value: "Jimmy McDude" }
-    // });
-    // fireEvent.click(getByText(appointment, "Save"));
-    // expect(getByText(appointment, "Saving Appointment!"))
-    // await waitForElement(() => getByText(appointment, "Error! Could not save appointment."));
-    // expect(getByText(appointment, "Error! Could not save appointment.")).toBeInTheDocument();
-    // debug();e
+
+  it("shows the save error when failing to save an appointment", async () => {
+    //simulate the error :D
+    axios.put.mockRejectedValueOnce();
+    //render app
+    const { container, debug } = render(<Application />);
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+    const appointment = getAllByTestId(container, "appointment").find(
+      appointment => queryByText(appointment, "Archie Cohen")
+    );
+   
+    fireEvent.click(queryByAltText(appointment, "Edit"));
+    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+      target: { value: "Jimmy McDude" }
+    });
+    fireEvent.click(getByText(appointment, "Save"));
+    expect(getByText(appointment, "Saving Appointment!"))
+   
+    await waitForElement(() => getByText(appointment, "Error! Could not save appointment."));
+    
+    expect(getByText(appointment, "Error! Could not save appointment.")).toBeInTheDocument();
+    // debug();
   });
-  xit("show the delete error when failing to save an appointmnet", async () => {
-    /// similar as above
+  it("show the delete error when failing to delete an appointmnet", async () => {
+   //simulate the error :D
+   axios.delete.mockRejectedValueOnce();
+   //render app
+   const { container, debug } = render(<Application />);
+   await waitForElement(() => getByText(container, "Archie Cohen"));
+   const appointment = getAllByTestId(container, "appointment").find(
+     appointment => queryByText(appointment, "Archie Cohen")
+   );
+  
+   fireEvent.click(queryByAltText(appointment, "Delete"));
+   fireEvent.click(getByText(appointment, "Confirm"));
+   expect(getByText(appointment, "Deleting!"))
+  
+   await waitForElement(() => getByText(appointment, "Error! Could not delete appointment."));
+   
+   expect(getByText(appointment, "Error! Could not delete appointment.")).toBeInTheDocument();
   });
 });

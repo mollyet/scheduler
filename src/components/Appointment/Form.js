@@ -3,6 +3,7 @@ import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
 const Form = (props) => {
+  //this is a controlled component-- it needs the null and "" when seting state for interviewer and name respectively. 
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [name, setName] = useState(props.name || "");
   const [error, setError] = useState("");

@@ -80,9 +80,6 @@ const useAppData = () => {
           });
         }
       })
-      .catch((error) => {
-        console.log("error!", error);
-      });
   };
 
   //deletes the interview
@@ -109,9 +106,6 @@ const useAppData = () => {
           });
         }
       })
-      .catch((error) => {
-        console.log("error!", error);
-      });
   };
 
   return { state, setDay, bookInt, deleteInt };

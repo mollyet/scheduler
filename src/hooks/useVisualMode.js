@@ -27,4 +27,3 @@ const useVisualMode = (x) => {
 export default useVisualMode;
 
 
-//make note when submitting-- found other issues from a mentor regarding use if setHistory && the former line 20- "slice mutates array" is FALSE!!! it does not!!!! 

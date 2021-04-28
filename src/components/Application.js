@@ -19,7 +19,7 @@ import "components/styling/Application.scss";
 
 const Application = () => {
   const { state, setDay, bookInt, deleteInt } = useAppData();
-
+  
   const dailyAppts = getApptsByDay(state, state.day);
 
   const interviewers = getIntsByDay(state, state.day);

@@ -43,7 +43,10 @@ const Appointment = (props) => {
     props
       .bookInterview(props.id, interview)
       .then(() => transition(SHOW))
-      .catch((error) => transition(ERROR_SAVE, true));
+      .catch((error) => {
+        console.log("error!", error)
+        transition(ERROR_SAVE, true)
+      });
   };
 
   const yeetDelete = () => {
@@ -51,7 +54,7 @@ const Appointment = (props) => {
     props
       .deleteInterview(props.id)
       .then(() => transition(EMPTY))
-      .catch((error) => transition(ERROR_DELETE, true));
+      .catch(error => transition(ERROR_DELETE, true));
   };
   const confirming = () => {
     transition(CONFIRM);
@@ -69,8 +72,8 @@ const Appointment = (props) => {
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
         <Show
-          student={props.interview.student}
-          interviewer={props.interview.interviewer}
+          student={props&&props.interview&&props.interview.student}
+          interviewer={props&&props.interview&&props.interview.interviewer}
           onDelete={confirming}
           onEdit={edit}
         />
