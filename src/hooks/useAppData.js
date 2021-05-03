@@ -67,11 +67,10 @@ const useAppData = () => {
       [id]: appointment,
     };
 
-    const newSpots = updateSpots(state.day, appointments, state);
-
     return axios
       .put(`/api/appointments/${id}`, { interview })
       .then((response) => {
+        const newSpots = updateSpots(state.day, appointments, state);
         if (response.status === 204) {
           setState({
             ...state,
@@ -79,7 +78,7 @@ const useAppData = () => {
             days: newSpots,
           });
         }
-      })
+      });
   };
 
   //deletes the interview
@@ -93,19 +92,18 @@ const useAppData = () => {
       ...state.appointments,
       [id]: appointment,
     };
-    const newSpots = updateSpots(state.day, appointments, state);
 
-    return axios
-      .delete(`api/appointments/${id}`, {})
-      .then((response) => {
-        if (response.status === 204) {
-          setState({
-            ...state,
-            appointments,
-            days: newSpots,
-          });
-        }
-      })
+    return axios.delete(`api/appointments/${id}`, {}).then((response) => {
+      const newSpots = updateSpots(state.day, appointments, state);
+      console.log("response from delete");
+      if (response.status === 204) {
+        setState({
+          ...state,
+          appointments,
+          days: newSpots,
+        });
+      }
+    });
   };
 
   return { state, setDay, bookInt, deleteInt };

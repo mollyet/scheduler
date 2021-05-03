@@ -54,7 +54,9 @@ const Appointment = (props) => {
     props
       .deleteInterview(props.id)
       .then(() => transition(EMPTY))
-      .catch(error => transition(ERROR_DELETE, true));
+      .catch(error => {
+        console.log("error!", error)
+        transition(ERROR_DELETE, true)});
   };
   const confirming = () => {
     transition(CONFIRM);
