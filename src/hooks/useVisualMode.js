@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+// useVisualMode handles transitons between state && allows user to transition forward/backward between modes
+
 const useVisualMode = (x) => {
   const [mode, setMode] = useState(x);
   const [history, setHistory] = useState([x]);
